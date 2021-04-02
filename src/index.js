@@ -129,6 +129,12 @@ const Passwords = require('./db');
 
       const accountPassword = store.get(account);
 
+      if (!accountPassword) {
+        console.log(`No saved password for: ${account}`);
+
+        return;
+      }
+
       console.log(`Password for ${account} is: ${accountPassword}`);
     }).argv;
 })();

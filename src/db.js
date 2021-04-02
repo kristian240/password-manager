@@ -27,7 +27,7 @@ class Passwords {
   }
 
   get(account) {
-    return this._data[account];
+    return this._data[account] || null;
   }
 
   save(password) {
