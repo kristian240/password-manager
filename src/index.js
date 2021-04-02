@@ -85,6 +85,8 @@ const Passwords = require('./db');
         store.load(password);
       } catch (e) {
         console.error('Error: Invalid master password.');
+
+        return;
       }
 
       store.add(account, accountPassword);
@@ -125,6 +127,8 @@ const Passwords = require('./db');
         store.load(password);
       } catch (e) {
         console.error('Error: Invalid master password.');
+
+        return;
       }
 
       const accountPassword = store.get(account);
