@@ -1,0 +1,33 @@
+SRS - Password manager
+
+Ovaj password manager pisan je u JavaScriptu te za njegov rad potreban je [Node.js](https://nodejs.org/en/).
+
+Napomena: svaku naredbu potrebno je pokrenuti iz korijenskog direktorija ovog projekta.
+
+Inicializacija
+
+Za inicijalizaciju potrebno je izvršiti slijedeću naredbu
+
+```bash
+npm pm:init <masterPassword>
+```
+
+Spremanje
+
+Za spremanje passworda potrebno je izvršiti
+
+```bash
+npm pm:set <masterPassword> <accountName> <accountPassword>
+```
+
+Dohvaćanje
+
+Za dohvaćanje passworda potrebno je izvršiti
+
+```bash
+npm pm:get <masterPassword> <accountName>
+```
+
+Ostalo
+
+Datoteka koja čuva spremljene passworde, nalazi se u `${homeDir}/.password-manager-kd`
