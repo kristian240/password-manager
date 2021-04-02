@@ -2,6 +2,12 @@ SRS - Password manager
 
 Ovaj password manager pisan je u JavaScriptu te za njegov rad potreban je [Node.js](https://nodejs.org/en/).
 
+Nakon što je instaliran Node.js, potrebno je instalirati pakete potrebne za rad. To činimo slijedećom naredbom:
+
+```bash
+npm i
+```
+
 Napomena: svaku naredbu potrebno je pokrenuti iz korijenskog direktorija ovog projekta.
 
 Inicializacija
