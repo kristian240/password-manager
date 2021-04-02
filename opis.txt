@@ -1,0 +1,19 @@
+SRS - Password manager
+
+Općenito
+
+- Vježba je izvedena u JS (Node.js)
+- Koristi se paket `crypto` iz Node.js okruženja
+- Za derivaciju ključa koristit se metoda `pbkdf2Sync` iz paketa crypto
+  - https://nodejs.org/api/crypto.html#crypto_crypto_pbkdf2sync_password_salt_iterations_keylen_digest
+  - za sažetak ze koristi `sha512` algoritam
+- Za enkripciju/dekripciju koristit se `aes-192-cbc` algoritam.
+- Kriptirani tekst spremljen je u datoteci: `${homeDir}/.password-manager-kd`
+
+Postupak
+
+1. Prilikom inicijalizacije, korisnik unosi masterPassword i on služi za enkripciju prazne "baze". Za "bazu" koristim JS objekt, točnije prilikom enkripcije/dekripcije koristi se JSON notacija tog objekta. (metode JSON::stringify i JSON::parse)
+
+2. Prilikom dodavanja, učitava se datoteka sa enkriptiranim podatcim te se dekriptira i učitava u memoriju. Stvara se novi zapis `account:password`. Nakon stvorenog zapisa, podatci se kriptiraju i spremaju.
+
+3. Prilikom čitanja, učitava se datoteka sa enkriptiranim podatcim te se dekriptira i učitava u memoriju. Dohvaća se željeni zapis i isisuje na ekran. Ukoliko zapis ne postoji, ispisuje se pogreška.
