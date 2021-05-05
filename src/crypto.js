@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-const ALGORITHM = 'aes-192-cbc';
+const ALGORITHM = 'aes-192-gcm';
 const IV_SIZE = 16;
 const KEY_SIZE = 24;
 const SALT_LENGTH = 16;
@@ -31,22 +31,27 @@ function encrypt(password, data) {
 
   const cipher = crypto.createCipheriv(ALGORITHM, key, iv);
 
-  let encryptedData = cipher.update(data, 'binary', 'hex');
+  let encryptedData = cipher.update(data, 'utf-8', 'hex');
   encryptedData += cipher.final('hex');
 
-  return [encryptedData, salt, iv.toString('hex')].join(JOIN_SEPARATOR);
+  const authTag = cipher.getAuthTag();
+
+  return [encryptedData, salt, iv.toString('hex'), authTag.toString('hex')].join(JOIN_SEPARATOR);
 }
 
 function decrypt(password, data) {
-  const [encryptedData, salt, ivHex] = data.split(JOIN_SEPARATOR);
+  const [encryptedData, salt, ivHex, authTagHex] = data.split(JOIN_SEPARATOR);
+
+  const authTag = Buffer.from(authTagHex, 'hex');
 
   const iv = Buffer.from(ivHex, 'hex');
   const key = keyFromPassword(password, salt);
 
   const decipher = crypto.createDecipheriv(ALGORITHM, key, iv);
+  decipher.setAuthTag(authTag);
 
-  let decryptedData = decipher.update(encryptedData, 'hex', 'binary');
-  decryptedData += decipher.final('binary');
+  let decryptedData = decipher.update(encryptedData, 'hex', 'utf-8');
+  decryptedData += decipher.final('utf-8');
 
   return decryptedData;
 }
