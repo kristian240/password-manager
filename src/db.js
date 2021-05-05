@@ -1,5 +1,6 @@
 const fs = require('fs');
 const homedir = require('os').homedir();
+const crypto = require('crypto');
 
 const { encrypt, decrypt } = require('./crypto.js');
 
@@ -31,6 +32,8 @@ class Passwords {
   }
 
   save(password) {
+    this._data.__meta__ = crypto.randomBytes(128).toString('hex');
+
     const encryptedData = encrypt(password, JSON.stringify(this._data));
 
     fs.writeFileSync(PASSWORD_MANAGER_STORE, encryptedData);
